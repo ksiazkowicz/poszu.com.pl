@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Poszu<span class="kropki">.</span>com<span class="kropki">.</span>pl</h1>
+                        <p class="intro-text">Łączmy ludzi w nadziei.</p>
+                        
+                        <a href="{% url 'found_form' %}" class="btn btn-success">
+                            Znaleziono
+                        </a>&nbsp;&nbsp;&nbsp;
+                        
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated" style="transform: translateX(-0.3em) translateY(-2em);"></i>
+                        </a>&nbsp;&nbsp;&nbsp;
+                        
+                        <a href="{% url 'lost_form' %}" class="btn btn-info">
+                            Zgubiono
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Po co to wszystko?</h2>
+                <p>Poszukujesz zguby? A może osoby, która szuka znalezionej przez ciebie rzeczy?</p>
+                <p>Mówią, że strata jednego jest zyskiem drugiego. Dla ciebie właśnie jest Poszu.com.pl! Najmniej uciążliwy sposób na skontaktowanie ludzi połączonych przedmiotem.</p>
+                <p>Wprowadzasz w formularzu podstawowe dane o zgubie lub znalezisku, a Poszu.com.pl wysyła ci pocztą elektroniczną raporty o możliwie pasujących zgłoszeniach. Według podanych cech dopasowujemy również zgłoszenia z poza naszej bazy danych. Cały czas przeszukujemy wiele stron z ogłoszeniami o znajdach i zgubach.</p>
+                <p>Nie musisz już martwić się, że pewnie przegapisz publicznie dostępną, wyczekiwaną wiadomość od nieznajomego - robimy wszystko, aby podać Ci ją na tacy: prosto do twojej skrzynki odbiorczej.</p>
+                <p>Więc teraz już WIESZ. Wiesz po co to wszystko<b>…</b></p>              
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="content-section text-center">
+        <div class="download-section">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Przygotuj się na nieznane</h2>
+                    
+                    <p>Bądź w pełnej gotowości do zgłoszenia cudzej zguby lub znalezionej przez kogoś rzeczy przy pomocy poszucompl'owej aplikacji na smarfony i tablety z Androidem.</p>
+                    <p>Ponieważ przy zgłoszeniu podajesz każdorazowo adres e-mail zainteresowanej kontaktem osoby - jest to najprostszy sposób wspomożenia kogoś innego w kłopotliwej sytuacji. A jaki skuteczny!</p>
+                    <p>Polecamy - wasze Poszucompl'e</p>
+
+                    <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Pobierz z Google Play</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Wyprzedź nas z wiadomością</h2>
+                <p>Dzień dobry!
+
+	** W tym miejscu możesz napisać nam coś miłego, albo pożytecznego… **
+
+Wspaniale że Poszucompél istnieje. Wszystkiego dobrego!
+
+** tutaj możesz się podpisać **
+</p>
+                <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div id="map"></div>
+{% endblock %}

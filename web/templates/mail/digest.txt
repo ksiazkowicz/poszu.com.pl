@@ -1,0 +1,9 @@
+Witaj!
+	
+Sprawdź nowe pozycje na Twojej stronie dopasowań.
+Przypominamy adres:
+{{ url }}
+
+Pamiętaj, aby potwierdzić szczęśliwe zakończenie akcji poszukiwawczej. Życzymy powodzenia!
+
+Twoi Poszucómpl'e.

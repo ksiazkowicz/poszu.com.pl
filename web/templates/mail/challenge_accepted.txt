@@ -1,0 +1,10 @@
+Witaj!
+
+Ten adres e-mail został zapisany do naszej bazy danych w związku z zaginięciem/odnalezieniem przedmiotu {{ name }}. Możesz obejrzeć listę dopasowanych przez Poszucompél zgłoszeń pod tym adresem:
+{{ url }}
+
+Pamiętaj, aby wycofać zgłoszenie, gdy zguba trafi do właściciela. Możesz to zrobić podając swój adres e-mail w odpowiedniej sekcji na stronie do której odnośnik właśnie otrzymałeś/aś.
+
+Życzymy satysfakcji z podjętych działań!
+
+Poszucompl'e.

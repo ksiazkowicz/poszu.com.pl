@@ -1,0 +1,14 @@
+<h1>Here is your data, you're welcome</h1>
+<h3>Just bragging about stuff:</h3>
+<ul>
+    <li>I imported {{ imported_data|length }} objects</li>
+    <li>I went through {{ crawled_pages }} pages</li>
+    <li>Latest object was added (date) // fill this later</li>
+    <li>It took me (way too much time) to import this data // fill this later</li>
+</ul>
+
+{% for object in imported_data %}
+<h4><a href="{{object.url}}">{{ object.name }}</a></h4>
+<p>{{object.description }}</p>
+<p style="font-size: 11px">{{ object.location }} {% if object.photo %} - {{ object.photo }} {% endif %} - {% if object.is_lost %}lost{%else%}found{%endif%}</p>
+{% endfor %}

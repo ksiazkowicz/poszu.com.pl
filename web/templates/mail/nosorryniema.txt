@@ -1,0 +1,9 @@
+Witaj!
+	
+Niestety Poszucómpél nie odnalazł jeszcze informacji adekwatnych do Twoich poszukiwań, ale nie ustaje w wysiłkach!
+Jest jednak dobrej myśli, pracowitej myśli, całkowicie skupionej na powierzonym mu zadaniu. Pamiętaj, że dopóki nie wycofasz albo nie zamkniesz swojego zlecenia przez formularz na stronie Twoich dopasowań - masz do niej  dostęp pod tym adresem:
+{{ url }}
+
+Bądź dobrej myśli - my też jesteśmy.
+
+Twoi Poszucómpl'e.

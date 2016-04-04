@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<section id="form" class="container content-section text-center">
+    <div class="row">
+        {{ form.errors }}
+        
+        <form method="post" enctype="multipart/form-data">
+            <div class="col-md-4 pull-left">
+                <p>
+                    <h4>Nazwa</h4>
+                    {{ form.name }}
+                </p>
+                
+                <p>
+                    <h4>Cechy szczególne</h4>
+                    <div class="input_fields_wrap">
+                        <a class="btn btn-info add_field_button">Dodaj cechę</a>
+                        <br /><br />
+                        <div><input type="text" name="description[1]" class="form-control"></div>
+                    </div>
+                </p>
+            </div>
+            <div class="col-md-4 pull-left">
+                <p>
+                    <h4>Lokalizacja</h4>
+                    {{ form.location }}
+                    {{ form.location_lat }}
+                    {{ form.location_lon }}
+                </p>
+                <br/><br/>
+                <p>
+                    <h4>Zdjęcie</h4>
+                    {{ form.photo }}
+                </p>
+            </div>
+            <div class="col-md-4 pull-left">
+                <p>
+                    <h4>Adres e-mail</h4>
+                    {{ form.email }}
+                </p>
+                <p>
+                    <input class="btn btn-primary pull-right" type="submit" value="Dodaj">
+                </p>
+            </div>
+            {{ form.is_lost }}
+            {% csrf_token %}
+        </form>
+        {{ form.media }}
+    </div>
+</section>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div><br/><input type="text" class="form-control" name="description['+x+']"/><a href="#" class="remove_field fa fa-close"></a></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>
+{% endblock %}

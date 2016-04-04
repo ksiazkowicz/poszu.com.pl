@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static thumbnail %}
+
+{% block main %}
+<h3>Zgubione przedmioty</h3>
+
+<div class="row">
+  {% for item in lost_objects %}
+  <div class="col-sm-6 col-md-4" stlye="width: 200px">
+    <div class="thumbnail">
+      {% thumbnail item.photo "200x200" crop="center" as image %}
+      <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}"></img>
+      {% endthumbnail %}
+      <div class="caption">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <p><a href="{% url "item" item.pk %}" class="btn btn-primary" role="button">Pokaż</a> <!--<a href="#" class="btn btn-default" role="button">Button</a></p>-->
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<p>
+<a class="btn btn-primary" href="{% url "new_item" %}">DAJ PLIKA</a>
+</p>
+{% endblock %}
