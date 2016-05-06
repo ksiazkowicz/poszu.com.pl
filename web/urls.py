@@ -22,6 +22,8 @@ from django.conf import settings
 from django.contrib.staticfiles import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from gumtree_crawler import urls as gumtree_urls
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
@@ -31,12 +33,14 @@ urlpatterns = [
     url(r'^item/found', 'web.views.new_found_form', name="found_form"),
     url(r'^item/(?P<item_hash>.*)/auth/(?P<auth_hash>.*)/$', 'web.views.admin_item', name="item_admin"),
     url(r'^item/(?P<item_hash>.*)$', 'web.views.show_item', name="item"),
-    url(r'^pull/gumtree', 'database.views.pull_from_gumtree', name='gumtree_pull'),
-    url(r'^pull/oglaszamy24/found', 'database.views.pull_from_oglaszamy24_2', name='oglaszamy24_found_pull'),
-    url(r'^pull/oglaszamy24', 'database.views.pull_from_oglaszamy24', name='oglaszamy24_pull'),
     url(r'^static/(?P<path>.*)$', views.serve),
     url(r'^success/', 'web.views.success', name="success"),
     url(r'^failure/', 'web.views.failure', name="failure"),
 ]
+
+for crawler in settings.CRAWLERS:
+    urlpatterns += [
+        url(r'crawlers/'+crawler[1]+r'/', include(crawler[0]+".urls")),
+    ]
 
 urlpatterns += staticfiles_urlpatterns()

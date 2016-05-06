@@ -1,0 +1,167 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_static admin_crawlers %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
+{% endblock %}
+
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}{{ block.super }} {% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% block status %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Status usług</h3>
+                </div>
+                <div class="panel-body">
+                    {% get_services as services %}
+                    {% for name, service in services.items %}
+                        <div class="pull-right">
+                            <a href="/crawlers/{{ name }}/pull" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Aktualizuj
+                            </a>
+                        </div>
+
+                        <h4>
+                            {{ name }}
+                            <span class="label label-success">{{ service.get_status }}</span>
+                        </h4>
+
+                        <ul>
+                            <li><b>Ostatnia aktualizacja:</b> {{ service.last_update }}</li>
+                            <li><b>Ostatnia próba:</b> {{ service.last_attempt }}</li>
+                            <li><b>Liczba wpisow:</b> {{ service.get_count }}</li>
+                        </ul>
+                        {% if not forloop.last %}<hr/>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Statystyki</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="chartdiv"></div>
+                    Good job!
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+        <div class="col-md-8">
+            {% if app_list %}
+            {% for app in app_list %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ app.name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group" style="width: 100%">
+                        {% for model in app.models %}
+                            <li class="list-group-item">
+                                <div class="pull-right">
+                                    <a href="{{ model.add_url }}" class="btn btn-default">
+                                        <i class="glyphicon glyphicon-plus"></i> {% trans "Add" %}
+                                    </a>
+                                </div>
+                                <div style="font-size: 18px; padding: 10px 12px;">
+                                    <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% trans 'Recent Actions' %}</h3>
+                </div>
+                <div class="panel-body">
+                    <h4>{% trans 'My Actions' %}</h4>
+                    {% load log %}
+                    {% get_admin_log 10 as admin_log for_user user %}
+                    {% if not admin_log %}
+                        <p>{% trans 'None available' %}</p>
+                    {% else %}
+                        <ul class="list-group" style="width: 100%">
+                            {% for entry in admin_log %}
+                                <li class="list-group-item">
+                                    {% if entry.is_addition %}
+                                        <span class="badge" style="background-color: #5cb85c;">{% trans "New" %}</span>
+                                    {% endif %}
+                                    {% if entry.is_change %}
+                                        <span class="badge">{% trans "Changed" %}</span>
+                                    {% endif %}
+                                    {% if entry.is_deletion %}
+                                        <span class="badge" style="background-color: #d9534f;">{% trans "Removed" %}</span>
+                                    {% endif %}
+
+                                    {% if entry.is_deletion or not entry.get_admin_url %}
+                                        {{ entry.object_repr }}
+                                    {% else %}
+                                        <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                                    {% endif %}
+                                    <br/>
+                                    {% if entry.content_type %}
+                                        <span class="mini quiet">{% filter capfirst %}{{ entry.content_type }}{% endfilter %}</span>
+                                    {% else %}
+                                        <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var chart = AmCharts.makeChart( "chartdiv", {
+            "type": "pie",
+            "theme": "light",
+            "dataProvider": [ {
+                "Status": "Sukces",
+                "Ads": {% success_count %}
+            }, {
+                "Status": "Ragequit",
+                "Ads": {% fail_count %}
+            }, {
+                "Status": "Otwarte",
+                "Ads": {% open_count %}
+            }],
+            "valueField": "Ads",
+            "titleField": "Status",
+            "balloon":{
+                "fixedPosition":true
+            },
+            "export": {
+                "enabled": true
+            }
+        } );
+    </script>
+
+    <style>
+        #chartdiv {
+            width		: 100%;
+            height		: 300px;
+        }
+    </style>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

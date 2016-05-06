@@ -11,13 +11,17 @@
             {% if is_admin %}
             <div class="col-md-6">
             {% endif %}
-                <h2>{{ item.name }}</h2>
+                <h2>
+                    {% if item.url %}<a href="{{ item.url }}">{% endif %}
+                    {{ item.name }}
+                    {% if item.url %}</a>{% endif %}
+                </h2>
                 <span class="photo">
                     {% if item.photo %}
                         {% if item.source == "poszu.com.pl" %}
-                        <img src="{% static item.photo %}" width=400 height=400></img>
+                        <img src="{% static item.photo %}" width=400 height=400>
                         {% else %}
-                        <img src="{{ item.photo }}" width=400 height=400></img>
+                        <img src="{{ item.photo }}" width=400 height=400>
                         {% endif %}
                     {% else %}
                     <img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" width=400 height=400 />

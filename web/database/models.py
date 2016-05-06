@@ -13,6 +13,8 @@ import uuid
 
 import hashlib, os
 from geopy.distance import great_circle
+from datetime import datetime
+from django.utils import timezone
 
 obvious_words = ['w','.','na',u'pobliżu','o','z','kontakt','właścicielem','prosimy',',','lub','bd','mi','u','ja','i','dla',u'','za','do','zna','ten','do','znalazc','znalazca','nagroda','godzina','jej','on','opis','(',')','warta','wart','prosz','uczciwy','przyjacielu','drogi','drog','a','jak','tam','mam','m','przez','si','moj','co','kt','r','zostaa','go','t']
 
@@ -118,3 +120,21 @@ class Item(models.Model):
                 similar += ([object,similarity_rate,],)
                 
         return similar
+
+
+class Service(models.Model):
+    name = models.CharField(_("Name"), max_length=128, blank=False)
+    last_update = models.DateTimeField(_("Uploaded date"), auto_now=True)
+    last_attempt = models.DateTimeField(_("Uploaded date"), auto_now=True)
+
+    def get_status(self):
+        if self.last_update != self.last_attempt:
+            return "API_ERROR"
+
+        if (self.last_update-timezone.now()).days > -3:
+            return "API_UPTODATE"
+        else:
+            return "API_OUTDATED"
+
+    def get_count(self):
+        return len(Item.objects.filter(source=self.name))

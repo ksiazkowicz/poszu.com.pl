@@ -47,7 +47,14 @@ INSTALLED_APPS = (
     'rest_framework',
     'sorl.thumbnail',
     'osm_field',
+    'gumtree_crawler',
+    'oglaszamy24_crawler',
 )
+
+CRAWLERS = [
+    ("gumtree_crawler", r"gumtree"),
+    ("oglaszamy24_crawler", r"oglaszamy24"),
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,6 +131,7 @@ STATICFILES_DIRS = (
     ("img", PROJECT_ROOT + "/static/img"),
     ("media", PROJECT_ROOT + "/media"),
     ("font-awesome", PROJECT_ROOT + "/static/font-awesome"),
+    ("amcharts", PROJECT_ROOT + "/static/amcharts"),
 )
 
 STATICFILES_FINDERS = (
@@ -166,17 +174,8 @@ REST_FRAMEWORK = {
     )
 }
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST = 'localhost'
-#EMAIL_HOST_PASSWORD = 'MWu6USA2wqMNAPul'
-#EMAIL_HOST_USER = 'poszucom@wawcode2.cloudapp.net'
-#EMAIL_PORT = '25'
 EMAIL_USE_TLS = False
-
-
-
 EMAIL_HOST = 'mailtrap.io'
 EMAIL_HOST_USER = '383002261f9f7568a'
 EMAIL_HOST_PASSWORD = 'befc9b84a950b5'
