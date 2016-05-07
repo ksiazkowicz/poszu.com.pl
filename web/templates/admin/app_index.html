@@ -7,13 +7,12 @@
 
 {% if not is_popup %}
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-&rsaquo;
+<ol class="breadcrumb">
+<li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
 {% for app in app_list %}
-{{ app.name }}
+<li class="active">{{ app.name }}</li>
 {% endfor %}
-</div>
+</ol>
 {% endblock %}
 {% endif %}
 

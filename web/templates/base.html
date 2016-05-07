@@ -57,6 +57,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
+                    {% if request.path == "/" %}
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden">
                         <a href="#page-top"></a>
@@ -70,6 +71,13 @@
                     <li>
                         <a class="page-scroll" href="#contact">Wyprzedź nas z listem</a>
                     </li>
+                    {% else %}
+                    <li>
+                        <a class="page-scroll" href="/">Strona domowa</a>
+                    </li>
+                    {% endif %}
+                    {% block nav_links %}
+                    {% endblock %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -93,7 +101,7 @@
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>Copyright &copy; poszu.com.pl 2015</p>
+            <p>Copyright &copy; poszu.com.pl {% now "Y" %}</p>
             <p>With special thanks to <a href="http://import.io">import.io</a> <span class="fa fa-heart-o"></span></p>
         </div>
     </footer>

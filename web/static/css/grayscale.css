@@ -156,6 +156,10 @@ a:focus {
     -o-background-size: cover;
 }
 
+.intro-lost {
+    background-image: url(../img/hope-bg.jpg);
+}
+
 .intro .intro-body {
     display: table-cell;
     vertical-align: middle;
